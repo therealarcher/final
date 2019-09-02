@@ -1,15 +1,14 @@
-import React, { useState, useContext } from 'react';
-import RecipesContext from './RecipesContext';
+import React, { useState } from 'react';
 
 const GetRecipes = () => {
   const [title, setTitle] = useState('');
-  const [recipes, setRecipes] = useState('');
+  const [ingredients, setIngredients] = useState('');
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
   const addSearch = (e) => {
     e.preventDefault();
-    setRecipes((prevRecipes) => [...prevRecipes, { title: title }]);
+    setIngredients((prevIngredients) => [...prevIngredients, { title: title }]);
   };
   return (
     <form onSubmit={addSearch}>
