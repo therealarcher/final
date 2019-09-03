@@ -16,32 +16,39 @@ ActiveRecord::Schema.define(version: 2019_08_31_203645) do
   enable_extension "plpgsql"
 
   create_table "ingredients", force: :cascade do |t|
+    t.bigint "recipe_id"
+    t.integer "ingredient_id"
+    t.string "name"
+    t.string "html_name"
+    t.integer "quantity"
+    t.string "display_quantity"
+    t.string "unit"
+    t.integer "metric_quantity"
+    t.string "metric_display_quantity"
+    t.string "metric_unit"
+    t.string "preparation_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
+    t.integer "recipe_id"
     t.string "name"
-    t.string "image"
-    t.integer "ingredient_id"
-    t.string "metric_unit"
-    t.integer "metric_quantity"
-    t.string "display_quantity"
-    t.decimal "quantity"
-    t.string "unit"
+    t.string "cuisine"
+    t.string "category"
+    t.string "sub_category"
+    t.string "micro_category"
+    t.decimal "star_rating"
+    t.string "web_url"
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "steps", force: :cascade do |t|
     t.bigint "recipe_id"
-    t.string "name"
-    t.float "quantity"
-    t.string "unit"
-    t.integer "ingredient_id"
-    t.float "metric_quantity"
-    t.string "metric_unit"
-    t.string "preparation_notes"
+    t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_steps_on_recipe_id"

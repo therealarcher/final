@@ -10,9 +10,6 @@ development:
   encoding: unicode
   database: final_development
   pool: 5
-  username: jonathanarcher
-  password:
-  timeout: 5000
 
 # default: &default
 #   adapter: sqlite3
@@ -32,9 +29,6 @@ test:
   encoding: unicode
   database: final_test
   pool: 5
-  username: jonathanarcher
-  password:
-  timeout: 5000
 # test:
 #   <<: *default
 #   database: db/test.sqlite3

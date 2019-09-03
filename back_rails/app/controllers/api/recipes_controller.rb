@@ -1,9 +1,15 @@
 class Api::RecipesController < ApplicationController
+  # def index
+  #   # puts query_parameters.inspect
+  #   recipes = BigOvenService.get_steps
+  #   render json: recipes
+  # end
+
   def index
-    # puts query_parameters.inspect
-    recipes = BigOvenService.get_steps
+    recipes = Recipe.all
     render json: recipes
   end
+    
 
   # user recipe form
   def new
