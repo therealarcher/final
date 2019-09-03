@@ -1,5 +1,6 @@
 import React from 'react';
 import './recipe.css';
+
 const Recipe = ({ recipe }) => {
   return (
     <div>
@@ -24,9 +25,17 @@ const Recipe = ({ recipe }) => {
           ))}
         </tbody>
       </table>
+
       <h4>Recipe Description</h4>
-      <div className="RecipeTable">
-        <p>{recipe.Description}</p>
+      <p>{recipe.Description}</p>
+
+      <div>
+        <h4>Steps</h4>
+        <div>
+          {recipe.Steps.map((Step) => (
+            <p>{Step.Text}</p>
+          ))}
+        </div>
       </div>
     </div>
   );

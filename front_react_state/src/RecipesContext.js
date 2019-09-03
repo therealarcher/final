@@ -105,6 +105,21 @@ export const RecipesProvider = (props) => {
           Quantity: 1.0,
           Unit: 'tablespoon'
         }
+      ],
+      Steps: [
+        { Text: 'Place quinoa in mesh strainer and rinse well' },
+        { Text: 'cook in saucepan with broth' },
+        { Text: 'Stir, let stand, covered, 15 mins' },
+        { Text: 'If you intend to serve warm skip this step' },
+        {
+          Text:
+            'For dressing: combine oil, vinegar, mustard, salt and pepper to taste in small bowl; use whisk until blended.'
+        },
+        { Text: 'Pour over quinoa mixture, mix to blend flavors.' },
+        {
+          Text:
+            'When ready to serve: add mango, green onions, cranberries and parsley to quinoa.'
+        }
       ]
     }
   ]);
