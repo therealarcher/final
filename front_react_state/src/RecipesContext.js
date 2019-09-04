@@ -1,18 +1,8 @@
-import React, { useState, createContext, useEffect, useReducer } from 'react';
-// import Axios from 'axios';
+import React, { useState, createContext } from 'react';
+
 export const RecipesContext = createContext();
 
 export const RecipesProvider = (props) => {
-  // Axios.get(
-  //   'https://api2.bigoven.com/recipe/steps/196802?api_key=kYmJ0liqms7d9D2lK5v1vUo7D37a456U'
-  // )
-  //   .then(function(response) {
-  //     console.log(response.data);
-  //   })
-  //   .catch(function(e) {
-  //     console.log(e);
-  //   });
-
   const [recipes, setRecipes] = useState([
     {
       RecipeID: 196802,
@@ -42,7 +32,7 @@ export const RecipesProvider = (props) => {
           Unit: 'tablespoon'
         },
         {
-          IngredientId: 2016376,
+          IngredientId: 2016311,
           Name: 'quinoa',
           MetricUnit: 'cup',
           MetricQuantity: 1,

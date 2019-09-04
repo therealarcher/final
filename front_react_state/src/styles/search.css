@@ -1,0 +1,14 @@
+.container {
+  margin: 36px auto;
+  width: 100%;
+}
+.heading {
+  font-size: 30px;
+  padding: 16px 0;
+  color: #444;
+  text-align: center;
+}
+
+.search-label {
+  position: relative;
+}

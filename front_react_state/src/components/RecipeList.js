@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Recipe from './Recipe';
 
-import { RecipesContext } from './RecipesContext';
+import { RecipesContext } from '../RecipesContext';
 const RecipeList = () => {
   const [recipes, setRecipes] = useContext(RecipesContext);
   return (
