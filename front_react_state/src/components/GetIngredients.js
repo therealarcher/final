@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Toggle from '../utilities/Toggle';
 
 export const useFetch = (url) => {
@@ -7,7 +7,7 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(url);
+      const response = await fetch(url, { mode: 'cors' });
       const data = await response.json();
       const [item] = data;
       setData(data);
@@ -19,9 +19,7 @@ export const useFetch = (url) => {
 };
 
 export const GetIngredients = () => {
-  const { data, loading } = useFetch(
-    'http://localhost:3000/api/v1/ingredients'
-  );
+  const { data, loading } = useFetch('http://localhost:3002/api/recipes/new');
 
   return (
     <div>

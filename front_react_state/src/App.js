@@ -4,7 +4,7 @@ import { RecipesProvider } from './RecipesContext';
 import GetRecipes from './components/GetRecipes';
 import './styles/App.css';
 import { GetIngredients } from './components/GetIngredients';
-import LiveSearch from './components/LiveSearch';
+// import LiveSearch from './components/LiveSearch';
 function App() {
   return (
     <RecipesProvider>
@@ -12,7 +12,6 @@ function App() {
         <GetRecipes />
         <RecipeList />
         <GetIngredients />
-        <LiveSearch />
       </div>
     </RecipesProvider>
   );

@@ -21,8 +21,12 @@ class Api::RecipesController < ApplicationController
     # something like the below when steps DB is seeded
     # raise @steps.inspect # debug
     # @steps = Step.all
+
   end
 
+  def search
+    render json: BigOvenService.search_recipes(params[:term])
+  end 
 
 
 end

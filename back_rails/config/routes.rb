@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # a suggestion by someone online (to generate an API namespace)
   namespace :api do
     root to: 'recipes#index'
+    get "/recipes/search", to: "recipes#search"
     resources :recipes, only: [:index, :new]
   end
 

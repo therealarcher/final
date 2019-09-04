@@ -1,12 +1,16 @@
 require 'net/http'
 require 'json'
-
+#we need to call BigOvenService.new() as an instance of this service object upon a get request
+#being received by the rails api 
+# an instance variable of the service should be able to take in the input data created by the 
+#post request to API from React front end --> database entry to a search table, new BigOvenService 
+#instance is created with the search params embedded in the external API request.
 class BigOvenService
 
-  def self.search_recipes(*ingredients)
+  def self.search_recipes(ingredients)
     # search_recipes('quinoa', 'corn', 'beef')
     # ingredients => ['quinoa', 'corn', 'beef']
-    url = "https://api2.bigoven.com/recipes?any_kw=quinoa&api_key=#{ENV['API_KEY']}"
+    url = "https://api2.bigoven.com/recipes?any_kw=#{ingredients}&api_key=#{ENV['API_KEY']}"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     # puts response
