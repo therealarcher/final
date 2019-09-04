@@ -1,29 +1,21 @@
 import React, { Component } from 'react';
-import '../styles/search.css';
-export default class LiveSearch extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: '',
-      results: {},
-      loading: false,
-      message: ''
-    };
-  }
 
+import { Typeahead } from 'react-typeahead';
+
+export default class LiveSearch extends Component {
   render() {
     return (
-      <div className="container">
-        <h2 className="heading">Live Search</h2>
-        <label className="search-label" htmlFor="search-input">
-          <input
-            type="text"
-            value=""
-            id="search-input"
-            placeholder="search..."
-          />
-          <i className="fa fa-search" aria-hidden="true" />
-        </label>
+      <div>
+        <Typeahead
+          options={[
+            'apples',
+            'oranges',
+            'chicken breast',
+            'chicken thighs',
+            'quinoa'
+          ]}
+          maxVisible={2}
+        />
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Toggle from '../utilities/Toggle';
+
 export const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
