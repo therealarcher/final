@@ -10,16 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_31_203645) do
+ActiveRecord::Schema.define(version: 2019_09_03_014747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ingredients", force: :cascade do |t|
-    t.bigint "recipe_id"
-    t.integer "ingredient_id"
     t.string "name"
     t.string "html_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "recipe_ingredients", force: :cascade do |t|
+    t.bigint "recipe_id"
+    t.bigint "ingredient_id"
     t.integer "quantity"
     t.string "display_quantity"
     t.string "unit"
@@ -29,29 +34,21 @@ ActiveRecord::Schema.define(version: 2019_08_31_203645) do
     t.string "preparation_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+    t.index ["ingredient_id"], name: "index_recipe_ingredients_on_ingredient_id"
+    t.index ["recipe_id"], name: "index_recipe_ingredients_on_recipe_id"
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.integer "recipe_id"
     t.string "name"
     t.string "cuisine"
     t.string "category"
     t.string "sub_category"
-    t.string "micro_category"
     t.decimal "star_rating"
     t.string "web_url"
     t.string "image_url"
+    t.string "steps"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "steps", force: :cascade do |t|
-    t.bigint "recipe_id"
-    t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_steps_on_recipe_id"
   end
 
 end

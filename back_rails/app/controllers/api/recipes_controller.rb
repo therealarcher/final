@@ -13,7 +13,9 @@ class Api::RecipesController < ApplicationController
 
   # user recipe form
   def new
-    recipes = BigOvenService.search_recipes
+    # recipes = BigOvenService.search_recipes
+    # render json: recipes
+    recipes = Ingredient.all
     render json: recipes
 
     # something like the below when steps DB is seeded
