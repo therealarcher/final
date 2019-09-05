@@ -16,7 +16,7 @@ class BigOvenService
     # puts response
     JSON.parse(response)["Results"].each do |recipe|
       Recipe.create!(
-        id: recipe["RecipeID"] ,
+        id: recipe["RecipeID"],
         name: recipe["Title"],
         # description: recipe["Description"],
         cuisine: recipe["Cuisine"],
@@ -34,7 +34,7 @@ class BigOvenService
 # to get recipe details
   def self.get_recipe(id)
     recipe = Recipe.find(id)
-    url = "https://api2.bigoven.com/recipe/steps/#{recipe.id}?&api_key=#{ENV['API_KEY']}"
+    url = "https://api2.bigoven.com/recipe/steps/#{id}?&api_key=#{ENV['API_KEY']}"
     uri = URI(url)
     response = Net::HTTP.get(uri)
     puts response
