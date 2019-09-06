@@ -1,12 +1,11 @@
-.container {
+.search-container {
   margin: 36px auto;
   width: 100%;
 }
-.heading {
+.search-heading {
   font-size: 30px;
-  padding: 16px 0;
+  padding: 16px 16px;
   color: #444;
-  text-align: center;
 }
 
 .search-label {

@@ -1,65 +1,39 @@
-// import React from 'react';
-// import '../styles/recipe.css';
-// import Toggle from '../utilities/Toggle';
-
-// const Recipe = ({ recipe }) => {
-//   return (
-//     <div>
-//       <h3>{recipe.Title}</h3>
-//       <div>
-//         <Toggle>
-//           {({ on, toggle }) => (
-//             <div>
-//               {on && (
-//                 <table className="RecipeTable">
-//                   <tbody>
-//                     <tr>
-//                       <th>Ingredient</th>
-//                       <th>Unit Measure</th>
-//                     </tr>
-//                     {recipe.Ingredients.map((Ingredient) => (
-//                       <tr key={Ingredient.IngredientId}>
-//                         <td>{Ingredient.Name}</td>
-//                         <td>
-//                           {Ingredient.MetricQuantity}
-//                           {Ingredient.MetricUnit}
-//                         </td>
-//                       </tr>
-//                     ))}
-//                   </tbody>
-//                 </table>
-//               )}
-//               <button onClick={toggle}>List of Ingredients</button>
-//             </div>
-//           )}
-//         </Toggle>
-//         <div>
-//           <Toggle>
-//             {({ on, toggle }) => (
-//               <div>
-//                 {on && <p>{recipe.Description}</p>}
-//                 <button onClick={toggle}>Recipe Description</button>
-//               </div>
-//             )}
-//           </Toggle>
-//         </div>
-//       </div>
-//       <Toggle>
-//         {({ on, toggle }) => (
-//           <div>
-//             {on && (
-//               <div>
-//                 {recipe.Steps.map((Step) => (
-//                   <p>{Step.Text}</p>
-//                 ))}
-//               </div>
-//             )}
-//             <button onClick={toggle}>Display Recipe Steps</button>
-//           </div>
-//         )}
-//       </Toggle>
-//     </div>
-//   );
-// };
-
-// export default Recipe;
+import '../styles/App.css';
+import '../styles/recipe.css';
+import '../styles/search.css';
+import React, { Component, Fragment } from 'react';
+import { Card, Nav, Container } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { GetRecipeDetails } from '../App';
+export const RecipeView = ({ id, name, image }) => {
+  return (
+    <Fragment key={id}>
+      <Card className="recipe-card" bg="secondary" text="white" name={name}>
+        <Card.Header className="flex-column" as="h5">
+          {name}
+        </Card.Header>
+        <Nav>
+          <Nav.Item>
+            <Nav.Link eventKey="first">Overview</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="second">Ingredients</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link eventKey="third">Steps</Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <div className="image-wrapper">
+          <Card.Img
+            height={200}
+            width={200}
+            alt="Card image cap"
+            variant="top"
+            src={image}
+          />
+        </div>
+      </Card>
+      <GetRecipeDetails id={id} />
+    </Fragment>
+  );
+};
