@@ -7,26 +7,26 @@ class Api::RecipesController < ApplicationController
 
   # @ necessary?
   def index
-    @recipes = Recipe.all
-    render json: @recipes
+    # @recipes = Recipe.all
+    # render json: @recipes
+    render json: BigOvenService.search_recipes(params[:term])
   end
-    
 
   # user recipe form - "new" route probably not needed
   def new
     # recipes = BigOvenService.search_recipes
     # render json: recipes
     
-    render json: BigOvenService.get_recipe(params[:id])
-    
+    # BigOvenService.get_recipe(params[:id])
+  
     # @ingredients = Ingredient.all
     # render json: @ingredients
-
+  #   render json: BigOvenService.search_recipes(params[:term])
   end
 
-  def search
-    render json: BigOvenService.search_recipes(params[:term])
-  end 
+  # def search
+  #   render json: BigOvenService.search_recipes(params[:term])
+  # end 
   
   # def search
   #   @recipe = Recipe.first
@@ -38,6 +38,10 @@ class Api::RecipesController < ApplicationController
   
 
   def show
+    BigOvenService.get_recipe(params[:id])
+    
+    @ingredients = Ingredient.all
+    render json: @ingredients
   end
 
 

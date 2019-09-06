@@ -10,7 +10,7 @@ class GetRecipeDetails extends Component {
 
   handleSubmit = () => {
     console.log('line 14', this.props);
-    fetch(`http://localhost:3003/api/recipes/new?id=${this.props.id}`, {
+    fetch(`http://localhost:3002/api/recipes/?id=${this.props.id}`, {
       mode: 'cors'
     })
       .then((response) => response.json())
@@ -48,7 +48,7 @@ class GetRecipes extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:3003/api/recipes/search?term=${this.state.query}`, {
+    fetch(`http://localhost:3002/api?term=${this.state.query}`, {
       mode: 'cors'
     })
       .then((response) => response.json())

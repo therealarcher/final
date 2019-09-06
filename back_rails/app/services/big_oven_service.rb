@@ -16,6 +16,7 @@ class BigOvenService
       response = Net::HTTP.get(uri)
       # puts response
       JSON.parse(response)["Results"].each do |recipe|
+        if (!Recipe.exists?(recipe["RecipeID"]))
         Recipe.create!(
           id: recipe["RecipeID"],
           name: recipe["Title"],
@@ -29,6 +30,7 @@ class BigOvenService
           web_url: recipe["WebURL"],
           image_url: recipe["PhotoUrl"]
         )
+        end
       end
     end
 
