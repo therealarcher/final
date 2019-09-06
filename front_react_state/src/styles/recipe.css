@@ -1,5 +1,27 @@
-.RecipeTable {
-  display: flex;
-  justify-content: center;
+.recipe-container {
   width: 100%;
+  margin: 16px, auto;
+
+  position: absolute;
+}
+.recipe-header {
+  display: inline-flexbox;
+}
+
+.recipe-card {
+  padding: 1rem;
+  margin: 0;
+  display: inline-flexbox;
+  position: relative;
+}
+
+.recipe-img {
+  max-height: 30%;
+  max-width: 30%;
+  display: inline-flex;
+  vertical-align: middle;
+  padding: 1rem;
+}
+.image-wrapper {
+  padding: 1rem;
 }

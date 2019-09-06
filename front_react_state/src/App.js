@@ -1,9 +1,15 @@
 import './styles/App.css';
-import React, { Component } from 'react';
-import { Card } from 'react-bootstrap';
+import './styles/recipe.css';
+import './styles/search.css';
+import React, { Component, Fragment } from 'react';
+import { Card, Nav, Container } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
+import { RecipeView } from './components/Recipe';
+
 //  when a recipe is selected, a query will be made to the API to get the recipe details for the
 // selected recipe
-class GetRecipeDetails extends Component {
+
+export class GetRecipeDetails extends Component {
   constructor(props) {
     super(props);
   }
@@ -58,7 +64,7 @@ export class GetRecipes extends Component {
           return {
             id: recipe.RecipeID,
             name: recipe.Title,
-            image: recipe.image_url,
+            image: recipe.PhotoUrl,
             category: recipe.cuisine
           };
         });
@@ -66,33 +72,40 @@ export class GetRecipes extends Component {
       .then((results) => this.setState({ recipes: results, isLoading: false }))
       .catch((error) => console.log('parsing failed', error));
   };
+
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} type="text">
+        <form
+          className="search-container"
+          onSubmit={this.handleSubmit}
+          type="text"
+        >
           <input
+            className="search-heading"
             type="text"
             onChange={this.handleChange}
             value={this.state.query}
           />
-          <button type="submit">Submit</button>
+          <br />
+          <button className="search-label" type="submit">
+            Get Recipes
+          </button>
         </form>
 
-        {this.state.recipes.map((recipe) => {
-          const { id, name } = recipe;
-          return (
-            <div key={id} name={name}>
-              <Card>
-                <Card.title>{name}</Card.title>
-              </Card>
-              <GetRecipeDetails key={id} id={id} />
-            </div>
-          );
-        })}
+        <div>
+          <Container as="div" className="recipe-container">
+            {this.state.recipes.map((recipe) => {
+              const { id } = recipe;
+              return <RecipeView key={id} {...recipe} />;
+            })}
+          </Container>
+        </div>
       </div>
     );
   }
 }
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -103,7 +116,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="App">
         <GetRecipes />
       </div>
     );
