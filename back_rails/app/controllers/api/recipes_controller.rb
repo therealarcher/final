@@ -1,11 +1,5 @@
 class Api::RecipesController < ApplicationController
-  # def index
-  #   # puts query_parameters.inspect
-  #   recipes = BigOvenService.get_steps
-  #   render json: recipes
-  # end
 
-  # @ necessary?
   def index
     # @recipes = Recipe.all
     # render json: @recipes
@@ -14,6 +8,8 @@ class Api::RecipesController < ApplicationController
 
   # user recipe form - "new" route probably not needed
   def new
+    
+    
     # recipes = BigOvenService.search_recipes
     # render json: recipes
     
@@ -40,10 +36,14 @@ class Api::RecipesController < ApplicationController
   def show
     BigOvenService.get_recipe(params[:id])
 
+    selected = Recipe.find(params[:id])
+    selected_ing = selected.recipe_ingredients.map{
+      |ri| {name: ri.ingredient.name, quantity: ri.display_quantity, unit: ri.unit, notes: ri.preparation_notes}}
+    selected_ing.push({steps: selected.steps})
+    render json: selected_ing
+    
     # @ingredients = Ingredient.all
-
-    # puts Recipe.find(params[:id])
-    render json: Recipe.find(params[:id])
+    # render json: @ingredients
   end
 
 
