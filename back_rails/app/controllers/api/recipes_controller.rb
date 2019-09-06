@@ -39,9 +39,11 @@ class Api::RecipesController < ApplicationController
 
   def show
     BigOvenService.get_recipe(params[:id])
-    
-    @ingredients = Ingredient.all
-    render json: @ingredients
+
+    # @ingredients = Ingredient.all
+
+    # puts Recipe.find(params[:id])
+    render json: Recipe.find(params[:id])
   end
 
 

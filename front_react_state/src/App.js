@@ -1,6 +1,6 @@
 import './styles/App.css';
 import React, { Component } from 'react';
-
+import { Card } from 'react-bootstrap';
 //  when a recipe is selected, a query will be made to the API to get the recipe details for the
 // selected recipe
 class GetRecipeDetails extends Component {
@@ -10,7 +10,7 @@ class GetRecipeDetails extends Component {
 
   handleSubmit = () => {
     console.log('line 14', this.props);
-    fetch(`http://localhost:3002/api/recipes/?id=${this.props.id}`, {
+    fetch(`http://localhost:3002/api/recipes/${this.props.id}`, {
       mode: 'cors'
     })
       .then((response) => response.json())
@@ -37,7 +37,7 @@ class GetRecipeDetails extends Component {
   }
 }
 
-class GetRecipes extends Component {
+export class GetRecipes extends Component {
   state = {
     recipes: [],
     query: ''
@@ -57,7 +57,9 @@ class GetRecipes extends Component {
         return myjson.map((recipe) => {
           return {
             id: recipe.RecipeID,
-            name: recipe.Title
+            name: recipe.Title,
+            image: recipe.image_url,
+            category: recipe.cuisine
           };
         });
       })
@@ -80,11 +82,9 @@ class GetRecipes extends Component {
           const { id, name } = recipe;
           return (
             <div key={id} name={name}>
-              <p>
-                {id}
-                <br />
-                {name}
-              </p>
+              <Card>
+                <Card.title>{name}</Card.title>
+              </Card>
               <GetRecipeDetails key={id} id={id} />
             </div>
           );
