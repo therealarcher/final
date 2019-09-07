@@ -10,9 +10,10 @@
 
 .recipe-card {
   padding: 1rem;
-  margin: 0;
-  display: inline-flexbox;
+  margin: 0 auto;
+  display: inline-block;
   position: relative;
+  border-style: solid black;
 }
 
 .recipe-img {
@@ -21,7 +22,9 @@
   display: inline-flex;
   vertical-align: middle;
   padding: 1rem;
+  border-radius: 10px;
 }
 .image-wrapper {
   padding: 1rem;
+  width: 200px;
 }
