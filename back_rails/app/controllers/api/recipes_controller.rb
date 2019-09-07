@@ -1,15 +1,18 @@
 class Api::RecipesController < ApplicationController
 
+  #shows all of users saved recipes
   def index
     # @recipes = Recipe.all
-    # render json: @recipes
+    render json: current_user.recipes
+  end
+
+  # /recipes/search?term=asd
+  def search
     render json: BigOvenService.search_recipes(params[:term])
   end
 
   # user recipe form - "new" route probably not needed
   def new
-    
-    
     # recipes = BigOvenService.search_recipes
     # render json: recipes
     
@@ -20,9 +23,6 @@ class Api::RecipesController < ApplicationController
   #   render json: BigOvenService.search_recipes(params[:term])
   end
 
-  # def search
-  #   render json: BigOvenService.search_recipes(params[:term])
-  # end 
   
   # def search
   #   @recipe = Recipe.first
