@@ -89,7 +89,7 @@ class BigOvenService
       recipe.steps = ''
       steps = JSON.parse(response)["Steps"]
       steps.each do |step|
-        step != steps.last ? recipe.steps += step["Text"] + ',' : recipe.steps += step["Text"]
+        step != steps.last ? recipe.steps += step["Text"] + '$' : recipe.steps += step["Text"]
         # recipe.steps +=  step["Text"] + ','
       end
       

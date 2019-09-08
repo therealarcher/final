@@ -1,8 +1,8 @@
 import '../styles/App.css';
 import '../styles/recipe.css';
 import '../styles/search.css';
-import React, { Fragment, useState, useEffect } from 'react';
-import { Card } from 'react-bootstrap';
+import React, { Fragment, useState } from 'react';
+import { Card, Container, Row, Col, Spinner } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -20,25 +20,38 @@ export function RecipeModal({ ingredients, handleSubmit }) {
   return (
     <div>
       <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
+        Show Recipe Details
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Ingredients</Modal.Title>
+          <Modal.Title>Recipe Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Modal.Title>Ingredients</Modal.Title>
           {ingredients.map((ingredient) => {
             return (
               <div key={ingredient.name}>
-                <p>{ingredient.name}</p>
-                <p>{ingredient.quantity}</p>
-                <p>{ingredient.unit}</p>
+                <p>
+                  {ingredient.qty} {ingredient.unit} - {ingredient.name}{' '}
+                </p>
                 <p>{ingredient.notes}</p>
-                <p>{ingredient.steps}</p>
               </div>
             );
           })}
+
+          <ol>
+            <Modal.Title>Step by step instructions</Modal.Title>
+            {ingredients.length > 0 ? (
+              ingredients[ingredients.length - 1].steps.map((step) => {
+                return <li>{step}</li>;
+              })
+            ) : (
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            )}
+          </ol>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -76,16 +89,27 @@ export function RecipeView({ id, name, image }) {
   };
   return (
     <Fragment key={id}>
-      <Card className="recipe-card" bg="secondary" text="white" name={name}>
-        <Card.Header className="flex-column" as="h5">
-          {name}
-        </Card.Header>
-        <RecipeModal ingredients={ingredients} handleSubmit={handleSubmit} />
+      <Col>
+        <Card
+          style={{ width: '18rem' }}
+          bg="secondary"
+          text="white"
+          name={name}
+        >
+          <Card.Header className="flex-column" as="h5">
+            {name}
+          </Card.Header>
+          <RecipeModal ingredients={ingredients} handleSubmit={handleSubmit} />
 
-        <div className="image-wrapper">
-          <Card.Img height={200} width={200} alt="Card image cap" src={image} />
-        </div>
-      </Card>
+          <Card.Img
+            variant="top"
+            height={120}
+            width={120}
+            alt="Card image cap"
+            src={image}
+          />
+        </Card>
+      </Col>
     </Fragment>
   );
 }

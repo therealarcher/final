@@ -4,9 +4,6 @@
 
   position: absolute;
 }
-.recipe-header {
-  display: inline-flexbox;
-}
 
 .recipe-card {
   padding: 1rem;
@@ -23,8 +20,4 @@
   vertical-align: middle;
   padding: 1rem;
   border-radius: 10px;
-}
-.image-wrapper {
-  padding: 1rem;
-  width: 200px;
 }

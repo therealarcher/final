@@ -39,7 +39,7 @@ class Api::RecipesController < ApplicationController
     selected = Recipe.find(params[:id])
     selected_ing = selected.recipe_ingredients.map{
       |ri| {name: ri.ingredient.name, quantity: ri.display_quantity, unit: ri.unit, notes: ri.preparation_notes}}
-    selected_ing.push({steps: selected.steps})
+    selected_ing.push({steps: selected.steps.split("$")})
     render json: selected_ing
     
     # @ingredients = Ingredient.all

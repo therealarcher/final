@@ -2,7 +2,7 @@ import './styles/App.css';
 import './styles/recipe.css';
 import './styles/search.css';
 import React, { Component } from 'react';
-import Container from 'react-bootstrap/Container';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import { RecipeView } from './components/Recipe';
 
@@ -57,12 +57,12 @@ export class GetRecipes extends Component {
         </form>
 
         <div>
-          <Container as="div" className="recipe-container">
+          <Row>
             {this.props.recipes.map((recipe) => {
               const { id } = recipe;
               return <RecipeView key={id} {...recipe} />;
             })}
-          </Container>
+          </Row>
         </div>
       </div>
     );
@@ -91,7 +91,7 @@ export default class App extends Component {
             id: recipe.RecipeID,
             name: recipe.Title,
             image: recipe.PhotoUrl,
-            category: recipe.cuisine
+            category: recipe.Cuisine
           };
         });
       })
@@ -100,12 +100,12 @@ export default class App extends Component {
   };
   render() {
     return (
-      <div className="App">
+      <Container>
         <GetRecipes
           recipes={this.state.recipes}
           handleSubmit={this.handleSubmit}
         />
-      </div>
+      </Container>
     );
   }
 }
