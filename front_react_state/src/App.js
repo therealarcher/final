@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 import { RecipeView } from './components/Recipe';
-
+import NewUser from './components/NewUser';
 export class GetRecipes extends Component {
   state = {
     recipes: [],
@@ -17,7 +17,7 @@ export class GetRecipes extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:3002/api?term=${this.state.query}`, {
+    fetch(`http://localhost:3001/api/recipes/search?term=${this.state.query}`, {
       mode: 'cors'
     })
       .then((response) => response.json())
@@ -80,7 +80,7 @@ export default class App extends Component {
   handleSubmit = (event, name) => {
     event.preventDefault();
 
-    fetch(`http://localhost:3002/api?term=${name}`, {
+    fetch(`http://localhost:3001/api/recipes/search?term=${name}`, {
       mode: 'cors'
     })
       .then((response) => response.json())
@@ -101,6 +101,7 @@ export default class App extends Component {
   render() {
     return (
       <Container>
+        <NewUser userName={this.state.currentUser} />
         <GetRecipes
           recipes={this.state.recipes}
           handleSubmit={this.handleSubmit}

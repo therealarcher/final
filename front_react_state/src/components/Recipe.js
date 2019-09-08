@@ -66,7 +66,7 @@ export function RecipeView({ id, name, image }) {
   const [ingredients, setIngredients] = useState([]);
 
   const handleSubmit = () => {
-    fetch(`http://localhost:3002/api/recipes/${id}`, {
+    fetch(`http://localhost:3001/api/recipes/${id}`, {
       mode: 'cors'
     })
       .then((response) => response.json())
