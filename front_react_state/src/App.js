@@ -7,11 +7,15 @@ import { Container, Row } from 'react-bootstrap';
 import { RecipeView } from './components/Recipe';
 import NavCard from './NavCard';
 import NewUser from './components/NewUser';
+
+//Information from this form is passed to the Rails API to run the recipe query
+// by search term(s)
 export class GetRecipes extends Component {
   constructor(props) {
     super();
 
     this.state = {
+      currentUser: '',
       recipes: [],
       query: ''
     };
@@ -85,20 +89,38 @@ export default class App extends Component {
   constructor() {
     super();
     this.HandleUpdate = this.HandleUpdate.bind(this);
+    this.updateCurrentUser = this.updateCurrentUser.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
   state = {
     name: '',
-
+    currentUser: {
+      name: ''
+    },
     recipes: [],
     ingredients: []
   };
-
-  HandleUpdate(e) {
-    e.preventDefault();
+  updateCurrentUser(name) {
+    console.log('the', name);
     this.setState({
-      name: e.target.value
+      currentUser: {
+        name: name
+      }
     });
   }
+
+  HandleUpdate(name) {
+    this.setState({
+      name: name
+    });
+  }
+  handleLogout = (name) => {
+    this.setState({
+      currentUser: {
+        name: ''
+      }
+    });
+  };
   handleSubmit = (event, name) => {
     event.preventDefault();
 
@@ -123,11 +145,22 @@ export default class App extends Component {
   render() {
     return (
       <Fragment>
-        <h1>user:{this.state.name}</h1>
-        <div>
-          <NewUser name={this.state.name} HandleUpdate={this.HandleUpdate} />
-          <NavCard />
-        </div>
+        {this.state.currentUser.name ? (
+          <Fragment>
+            <h1>Logged in as : {this.state.currentUser.name}</h1>
+            <button onClick={this.handleLogout}>Logout</button>
+          </Fragment>
+        ) : (
+          <div>
+            <NewUser
+              currentUser={this.state.currentUser.name}
+              updateCurrentUser={this.updateCurrentUser}
+              name={this.state.name}
+              HandleUpdate={this.HandleUpdate}
+            />
+          </div>
+        )}
+        <NavCard />
 
         <Container>
           <Container>

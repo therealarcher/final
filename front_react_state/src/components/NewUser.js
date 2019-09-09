@@ -7,33 +7,33 @@ import React, { Component } from 'react';
 export default class newUser extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: ''
-    };
-    this.handleChange = (e) => {
-      console.log(e.target.value);
-    };
-    this.handleSubmit = (event) => {
-      event.preventDefault();
 
-      fetch(`http://localhost:3001/api/users/new?user_id=${this.props.name}`, {
-        mode: 'cors'
-      }).then(this.setState({ name: '' }));
-    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSubmit = (event) => {
+    console.log(this.props);
+    event.preventDefault();
+
+    fetch(`http://localhost:3001/api/users/new?user_id=${this.props.name}`, {
+      mode: 'cors'
+    })
+      .then(() => this.props.updateCurrentUser(this.props.name))
+      .then(() => this.props.HandleUpdate(''))
+      .catch((error) => console.log('error =>', error));
+  };
 
   render() {
     return (
       <div>
-        <form type="text">
+        <form onSubmit={this.handleSubmit}>
           <input
             id="userInput"
             type="text"
-            onChange={this.props.HandleUpdate}
+            onChange={(e) => this.props.HandleUpdate(e.target.value)}
+            value={this.props.name}
           />
-          <button onClick={this.handleSubmit} type="submit">
-            Submit
-          </button>
+          <button type="submit">Login</button>
         </form>
       </div>
     );
