@@ -2,7 +2,7 @@ import '../styles/App.css';
 import '../styles/recipe.css';
 import '../styles/search.css';
 import React, { Fragment, useState } from 'react';
-import { Card, Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Card, Container, Row, Col, Spinner, ListGroup } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
@@ -29,19 +29,25 @@ export function RecipeModal({ ingredients, handleSubmit }) {
         </Modal.Header>
         <Modal.Body>
           <Modal.Title>Ingredients</Modal.Title>
+
           {ingredients.map((ingredient) => {
             return (
-              <div key={ingredient.name}>
-                <p>
-                  {ingredient.qty} {ingredient.unit} - {ingredient.name}{' '}
-                </p>
-                <p>{ingredient.notes}</p>
-              </div>
+              <Card key={ingredient.name}>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    {ingredient.qty} {ingredient.unit} - {ingredient.name}{' '}
+                  </ListGroup.Item>
+                  <ListGroup.Item style={{ backgroundColor: 'yellow' }}>
+                    {ingredient.notes}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
             );
           })}
 
           <ol>
             <Modal.Title>Step by step instructions</Modal.Title>
+            <br />
             {ingredients.length > 0 ? (
               ingredients[ingredients.length - 1].steps.map((step) => {
                 return <li>{step}</li>;
@@ -91,22 +97,26 @@ export function RecipeView({ id, name, image }) {
     <Fragment key={id}>
       <Col>
         <Card
-          style={{ width: '18rem' }}
+          style={{
+            width: '18rem',
+            margin: '16px',
+            boxShadow: '5px 10px #888888'
+          }}
           bg="secondary"
           text="white"
           name={name}
         >
-          <Card.Header className="flex-column" as="h5">
+          <Card.Header className="flex-row" as="h6">
             {name}
           </Card.Header>
           <RecipeModal ingredients={ingredients} handleSubmit={handleSubmit} />
 
           <Card.Img
-            variant="top"
-            height={120}
-            width={120}
             alt="Card image cap"
             src={image}
+            height={240}
+            roundedCircle={true}
+            thumbnail={true}
           />
         </Card>
       </Col>

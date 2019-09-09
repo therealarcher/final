@@ -1,16 +1,21 @@
 import './styles/App.css';
 import './styles/recipe.css';
 import './styles/search.css';
-import React, { Component } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { Component, Fragment } from 'react';
 
+import { Container, Row } from 'react-bootstrap';
 import { RecipeView } from './components/Recipe';
+import NavCard from './NavCard';
 import NewUser from './components/NewUser';
 export class GetRecipes extends Component {
-  state = {
-    recipes: [],
-    query: ''
-  };
+  constructor(props) {
+    super();
+
+    this.state = {
+      recipes: [],
+      query: ''
+    };
+  }
   handleChange = (event) => {
     this.setState({ query: event.target.value });
   };
@@ -39,23 +44,30 @@ export class GetRecipes extends Component {
   render() {
     return (
       <div>
-        <form
-          className="search-container"
-          onSubmit={(event) => this.props.handleSubmit(event, this.state.query)}
-          type="text"
-        >
-          <input
-            className="search-heading"
+        <div>
+          <form
+            style={{
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+            className="search-container"
+            onSubmit={(event) =>
+              this.props.handleSubmit(event, this.state.query)
+            }
             type="text"
-            onChange={this.handleChange}
-            value={this.state.query}
-          />
-          <br />
-          <button className="search-label" type="submit">
-            Get Recipes
-          </button>
-        </form>
-
+          >
+            <input
+              className="search-heading"
+              type="text"
+              onChange={this.handleChange}
+              value={this.state.query}
+            />
+            <br />
+            <button className="search-label" type="submit">
+              Get Recipes
+            </button>
+          </form>
+        </div>
         <div>
           <Row>
             {this.props.recipes.map((recipe) => {
@@ -70,12 +82,22 @@ export class GetRecipes extends Component {
 }
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      recipes: [],
-      ingredients: []
-    };
+  constructor() {
+    super();
+    this.HandleUpdate = this.HandleUpdate.bind(this);
+  }
+  state = {
+    name: '',
+
+    recipes: [],
+    ingredients: []
+  };
+
+  HandleUpdate(e) {
+    e.preventDefault();
+    this.setState({
+      name: e.target.value
+    });
   }
   handleSubmit = (event, name) => {
     event.preventDefault();
@@ -100,13 +122,22 @@ export default class App extends Component {
   };
   render() {
     return (
-      <Container>
-        <NewUser userName={this.state.currentUser} />
-        <GetRecipes
-          recipes={this.state.recipes}
-          handleSubmit={this.handleSubmit}
-        />
-      </Container>
+      <Fragment>
+        <h1>user:{this.state.name}</h1>
+        <div>
+          <NewUser name={this.state.name} HandleUpdate={this.HandleUpdate} />
+          <NavCard />
+        </div>
+
+        <Container>
+          <Container>
+            <GetRecipes
+              recipes={this.state.recipes}
+              handleSubmit={this.handleSubmit}
+            />
+          </Container>
+        </Container>
+      </Fragment>
     );
   }
 }
