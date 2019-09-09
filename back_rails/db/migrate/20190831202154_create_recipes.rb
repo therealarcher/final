@@ -10,7 +10,7 @@ class CreateRecipes < ActiveRecord::Migration[5.2]
       t.string :sub_category
       #t.string :micro_category
       # t.string :primary_ingredient
-      t.decimal :star_rating
+      t.decimal :star_rating, precision: 10, scale: 2
       t.string :web_url
       t.string :image_url
       t.string :steps

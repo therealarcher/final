@@ -1,7 +1,7 @@
 class Api::UserIngredientsController < ApplicationController
   
   def create
-    @user_ingredient = current_user.user_ingredients.build(name: params[:name])
+    @user_ingredient = current_user.user_ingredients.build(name: params[:name].singularize)
     if @user_ingredient.save
       head 201 ## successful response
     else

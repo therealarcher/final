@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2019_09_08_163440) do
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id"
     t.bigint "ingredient_id"
-    t.integer "quantity"
+    t.decimal "quantity", precision: 10, scale: 2
     t.string "display_quantity"
     t.string "unit"
-    t.integer "metric_quantity"
+    t.decimal "metric_quantity", precision: 10, scale: 2
     t.string "metric_display_quantity"
     t.string "metric_unit"
     t.string "preparation_notes"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_08_163440) do
     t.string "cuisine"
     t.string "category"
     t.string "sub_category"
-    t.decimal "star_rating"
+    t.decimal "star_rating", precision: 10, scale: 2
     t.string "web_url"
     t.string "image_url"
     t.string "steps"
