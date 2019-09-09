@@ -11,6 +11,9 @@ class BigOvenService
     def search_recipes(ingredients)
       # search_recipes('quinoa', 'corn', 'beef')
       # ingredients => ['quinoa', 'corn', 'beef']
+      # $queried_ingredients = [ingredients][-1].split(',') # to use in required purchase array (user_ingr_controller)
+      
+      
       url = "https://api2.bigoven.com/recipes?any_kw=#{ingredients}&api_key=#{ENV['API_KEY']}"
       uri = URI(url)
       response = Net::HTTP.get(uri)
@@ -41,10 +44,7 @@ class BigOvenService
       url = "https://api2.bigoven.com/recipe/steps/#{recipe.id}?&api_key=#{ENV['API_KEY']}"
       uri = URI(url)
       response = Net::HTTP.get(uri)
-      puts response
-      # get ingredients
-
-      #some logic in here to only save to DB if !in DB
+      # puts response
 
       JSON.parse(response)["Ingredients"].each do |ingredient|
         # recipe.ingredients.create!(

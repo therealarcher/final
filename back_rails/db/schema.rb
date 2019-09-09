@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_211717) do
+ActiveRecord::Schema.define(version: 2019_09_08_163440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 2019_09_06_211717) do
   create_table "recipe_ingredients", force: :cascade do |t|
     t.bigint "recipe_id"
     t.bigint "ingredient_id"
-    t.integer "quantity"
+    t.decimal "quantity", precision: 10, scale: 2
     t.string "display_quantity"
     t.string "unit"
-    t.integer "metric_quantity"
+    t.decimal "metric_quantity", precision: 10, scale: 2
     t.string "metric_display_quantity"
     t.string "metric_unit"
     t.string "preparation_notes"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_06_211717) do
     t.string "cuisine"
     t.string "category"
     t.string "sub_category"
-    t.decimal "star_rating"
+    t.decimal "star_rating", precision: 10, scale: 2
     t.string "web_url"
     t.string "image_url"
     t.string "steps"
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 2019_09_06_211717) do
     t.datetime "updated_at", null: false
     t.index ["recipe_id"], name: "index_saved_recipes_on_recipe_id"
     t.index ["user_id"], name: "index_saved_recipes_on_user_id"
+  end
+
+  create_table "user_ingredients", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_ingredients_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
