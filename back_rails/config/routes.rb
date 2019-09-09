@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :recipes, only: [:index, :new, :create, :show]
     resources :users, only: [:new]
     resources :saved_recipes, only: [:create, :destroy]
+    resources :user_ingredients, only: [:create, :destroy, :index]
     # post '/users/new' => 'users#new'
     
     # get '/login' => 'users#new'
