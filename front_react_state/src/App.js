@@ -23,6 +23,8 @@ export class GetRecipes extends Component {
   handleChange = (event) => {
     this.setState({ query: event.target.value });
   };
+
+  // button click event that triggers a
   handleSubmit = (event) => {
     event.preventDefault();
 

@@ -11,7 +11,8 @@
     "react-scripts": "3.1.1",
     "react-typeahead": "^2.0.0-alpha.8",
     "styled-bootstrap-components": "^4.0.0-alpha.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^4.3.2",
+    "uuid": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,13 +2,37 @@ import '../styles/App.css';
 import '../styles/recipe.css';
 import '../styles/search.css';
 import React, { Fragment, useState } from 'react';
-import { Card, Container, Row, Col, Spinner, ListGroup } from 'react-bootstrap';
+import {
+  Card,
+  Container,
+  Row,
+  Col,
+  Spinner,
+  ListGroup,
+  Alert
+} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
-export function RecipeModal({ ingredients, handleSubmit }) {
+import uuidv4 from 'uuid/v4';
+export function RecipeModal({ ingredients, handleSubmit, id }) {
   const [show, setShow] = useState(false);
+  const likeRecipe = () => {
+    fetch('/api/saved_recipes', {
+      // params: { saved_recipe: id },
+      method: 'POST',
+      body: JSON.stringify({ recipe_id: id }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        if (res.ok) alert('Recipe Saved');
+      })
 
+      .catch((error) => console.error('Error:', error));
+
+    // console.log('this is the id =>', id);
+  };
   const handleClose = () => setShow(false);
   const handleShow = () => {
     if (ingredients.length === 0) {
@@ -29,12 +53,12 @@ export function RecipeModal({ ingredients, handleSubmit }) {
         </Modal.Header>
         <Modal.Body>
           <Modal.Title>Ingredients</Modal.Title>
-
+          <Button onClick={() => likeRecipe()}>Button</Button>
           {ingredients.map((ingredient) => {
             return (
-              <Card key={ingredient.name}>
+              <Card key={uuidv4()}>
                 <ListGroup variant="flush">
-                  <ListGroup.Item>
+                  <ListGroup.Item key={ingredient.name}>
                     {ingredient.qty} {ingredient.unit} - {ingredient.name}{' '}
                   </ListGroup.Item>
                   <ListGroup.Item style={{ backgroundColor: 'yellow' }}>
@@ -50,7 +74,7 @@ export function RecipeModal({ ingredients, handleSubmit }) {
             <br />
             {ingredients.length > 0 ? (
               ingredients[ingredients.length - 1].steps.map((step) => {
-                return <li>{step}</li>;
+                return <li key={uuidv4()}>{step}</li>;
               })
             ) : (
               <Spinner animation="border" role="status">
@@ -77,6 +101,7 @@ export function RecipeView({ id, name, image }) {
     })
       .then((response) => response.json())
       .then((myjson) => {
+        console.log({ id });
         console.log(myjson);
         return myjson.map((recipeIngredients) => {
           return {
@@ -94,7 +119,7 @@ export function RecipeView({ id, name, image }) {
       .catch((error) => console.log('parsing failed', error));
   };
   return (
-    <Fragment key={id}>
+    <Fragment>
       <Col>
         <Card
           style={{
@@ -109,15 +134,13 @@ export function RecipeView({ id, name, image }) {
           <Card.Header className="flex-row" as="h6">
             {name}
           </Card.Header>
-          <RecipeModal ingredients={ingredients} handleSubmit={handleSubmit} />
-
-          <Card.Img
-            alt="Card image cap"
-            src={image}
-            height={240}
-            roundedCircle={true}
-            thumbnail={true}
+          <RecipeModal
+            id={id}
+            ingredients={ingredients}
+            handleSubmit={handleSubmit}
           />
+
+          <Card.Img alt="Card image cap" src={image} height={240} />
         </Card>
       </Col>
     </Fragment>
