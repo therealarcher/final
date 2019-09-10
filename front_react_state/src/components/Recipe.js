@@ -6,7 +6,13 @@ import { Card, Col, Spinner, ListGroup, Alert } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import uuidv4 from 'uuid/v4';
-export function RecipeModal({ ingredients, handleSubmit, id }) {
+
+export function RecipeModal({
+  ingredients,
+  handleSubmit,
+  id,
+  neededIngedients
+}) {
   const [show, setShow] = useState(false);
   const likeRecipe = () => {
     fetch('/api/saved_recipes', {
@@ -38,13 +44,13 @@ export function RecipeModal({ ingredients, handleSubmit, id }) {
       <Button variant="primary" onClick={handleShow}>
         Show Recipe Details
       </Button>
-
+      <Button variant="secondary">Show Needed Ingredients</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Recipe Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Modal.Title>Ingredients</Modal.Title>
+          <Modal.Title>Recipe Ingredients</Modal.Title>
           <Button onClick={() => likeRecipe()}>Save Recipe</Button>
           {ingredients.map((ingredient) => {
             return (
@@ -60,7 +66,12 @@ export function RecipeModal({ ingredients, handleSubmit, id }) {
               </Card>
             );
           })}
-
+          <Modal.Title>User Needed Ingredients</Modal.Title>
+          <Modal.Body>
+            {neededIngedients.map((neededIngredient) => {
+              return <p>{neededIngredient.name}</p>;
+            })}
+          </Modal.Body>
           <ol>
             <Modal.Title>Step by step instructions</Modal.Title>
             <br />
@@ -86,7 +97,27 @@ export function RecipeModal({ ingredients, handleSubmit, id }) {
 }
 export function RecipeView({ id, name, image }) {
   const [ingredients, setIngredients] = useState([]);
+  const [neededIngredients, setNeededIngredients] = useState([]);
 
+  const getNeededIngredients = () => {
+    fetch(`http://localhost:3001/api/user_ingredients/?id=${id}`, {
+      mode: 'cors'
+    })
+      .then((response) => response.json())
+      .then((myjson) => {
+        console.log({ id });
+        console.log(myjson);
+        return myjson.map((results) => {
+          return {
+            name: results
+          };
+        });
+      })
+      .then((results) => {
+        setNeededIngredients(results);
+      })
+      .catch((error) => console.log('parsing failed', error));
+  };
   const handleSubmit = () => {
     fetch(`http://localhost:3001/api/recipes/${id}`, {
       mode: 'cors'
@@ -108,6 +139,7 @@ export function RecipeView({ id, name, image }) {
       .then((results) => {
         setIngredients(results);
       })
+      .then(() => getNeededIngredients())
       .catch((error) => console.log('parsing failed', error));
   };
   return (
@@ -130,6 +162,7 @@ export function RecipeView({ id, name, image }) {
             id={id}
             ingredients={ingredients}
             handleSubmit={handleSubmit}
+            neededIngedients={neededIngredients}
           />
 
           <Card.Img alt="Card image cap" src={image} height={240} />
