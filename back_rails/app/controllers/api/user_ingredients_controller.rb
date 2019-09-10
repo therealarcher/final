@@ -46,18 +46,6 @@ class Api::UserIngredientsController < ApplicationController
     @@user_num_ingr_required = tot_num_ingr_required - matched_ingr.count
     # render json: @@user_num_ingr_required #quantity of ingredients user needs to make recipe
 
-
-    # just an array of similar terms with ingredients table
-    # arr = []
-    # current_user.user_ingredients.each do |ingredient|
-    #   keyword = "%#{ingredient.name}%"
-    #   q = Ingredient.where("ingredients.name LIKE ?", keyword)
-    #   q.each do |entry|
-    #     arr.push(entry.name)
-    #   end
-    #   # arr.push(q.name)
-    # end
-    # render json: arr
   end
 
 end
