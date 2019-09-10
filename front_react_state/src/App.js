@@ -24,7 +24,6 @@ export class GetRecipes extends Component {
     this.setState({ query: event.target.value });
   };
 
-  // button click event that triggers a
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -116,7 +115,7 @@ export default class App extends Component {
       name: name
     });
   }
-  handleLogout = (name) => {
+  handleLogout = () => {
     this.setState({
       currentUser: {
         name: ''
@@ -149,7 +148,7 @@ export default class App extends Component {
       <Fragment>
         {this.state.currentUser.name ? (
           <Fragment>
-            <h1>Logged in as : {this.state.currentUser.name}</h1>
+            <h4>Logged in as : {this.state.currentUser.name}</h4>
             <button onClick={this.handleLogout}>Logout</button>
           </Fragment>
         ) : (
@@ -162,7 +161,7 @@ export default class App extends Component {
             />
           </div>
         )}
-        <NavCard />
+        <NavCard HandleUpdate={this.HandleUpdate} />
 
         <Container>
           <Container>

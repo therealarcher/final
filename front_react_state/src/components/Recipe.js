@@ -2,15 +2,7 @@ import '../styles/App.css';
 import '../styles/recipe.css';
 import '../styles/search.css';
 import React, { Fragment, useState } from 'react';
-import {
-  Card,
-  Container,
-  Row,
-  Col,
-  Spinner,
-  ListGroup,
-  Alert
-} from 'react-bootstrap';
+import { Card, Col, Spinner, ListGroup, Alert } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import uuidv4 from 'uuid/v4';
@@ -53,7 +45,7 @@ export function RecipeModal({ ingredients, handleSubmit, id }) {
         </Modal.Header>
         <Modal.Body>
           <Modal.Title>Ingredients</Modal.Title>
-          <Button onClick={() => likeRecipe()}>Button</Button>
+          <Button onClick={() => likeRecipe()}>Save Recipe</Button>
           {ingredients.map((ingredient) => {
             return (
               <Card key={uuidv4()}>

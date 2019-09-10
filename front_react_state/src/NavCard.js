@@ -3,26 +3,53 @@ import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 
 class NavCard extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-  onsubmit = (event) => {
-    this.setState({
-      ...this.state,
-      user: { name: event.target.value }
-    });
+  state = {
+    name: '',
+    value: ''
   };
+
+  handleChange = (e) => {
+    this.setState({ name: e.target.value });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch('/api/user_ingredients', {
+      method: 'POST',
+      body: JSON.stringify({ name: this.state.name }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => {
+        if (res.ok) alert('ingredient saved');
+      })
+      .then(() => this.setState({ name: '' }))
+
+      .catch((error) => console.error('Error:', error));
+  };
+
   render() {
     return (
       <div>
         <Card className="Card-container">
           <Card.Body>
-            <Card.Title>{this.name}</Card.Title>
-            <Card.Subtitle></Card.Subtitle>
+            <Card.Title>Title</Card.Title>
+            <Button>Add items to pantry</Button>
+            <form onSubmit={this.handleSubmit}>
+              <input
+                value={this.state.name}
+                type="text"
+                onChange={this.handleChange}
+              />
+            </form>
           </Card.Body>
-          <Button type="submit" onClick={() => this.props.onSubmit}>
-            Get Recipe Details
-          </Button>
+          <Button type="submit"></Button>
         </Card>
       </div>
     );
