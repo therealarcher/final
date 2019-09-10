@@ -1,6 +1,7 @@
 import "../styles/App.css";
 import "../styles/recipe.css";
 import "../styles/search.css";
+import "../styles/modal.css";
 import React, { Fragment, useState } from "react";
 import { Card, Col, Spinner, ListGroup, Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
@@ -42,7 +43,14 @@ export function RecipeModal({ ingredients, handleSubmit, id }) {
         Show Recipe Details
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        className="recipeDetails"
+        size="lg"
+        // show={lgShow}
+        // onHide={() => setLgShow(false)}
+        aria-labelledby="example-modal-sizes-title-lg"
+        show={show}
+        onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Recipe Details</Modal.Title>
         </Modal.Header>
@@ -56,7 +64,7 @@ export function RecipeModal({ ingredients, handleSubmit, id }) {
                   <ListGroup.Item key={ingredient.name}>
                     {ingredient.qty} {ingredient.unit} - {ingredient.name}{" "}
                   </ListGroup.Item>
-                  <ListGroup.Item style={{ backgroundColor: "yellow" }}>
+                  <ListGroup.Item style={{ backgroundColor: "#f0f1f2" }}>
                     {ingredient.notes}
                   </ListGroup.Item>
                 </ListGroup>
