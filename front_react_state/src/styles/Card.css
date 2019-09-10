@@ -1,5 +1,7 @@
 .Card-container {
+  display: flex;
   justify-content: center;
   text-align: center;
+  float: left;
   width: 50%;
 }

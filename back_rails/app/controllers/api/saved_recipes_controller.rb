@@ -9,7 +9,10 @@ class Api::SavedRecipesController < ApplicationController
       render json: @saved_recipe.errors, status: :unprocessable_entity
     end
   end
-
+  def index 
+    # render json: current_user.saved_recipes
+    render json: current_user.saved_recipes.to_json(:include => :recipe)
+  end
   # /saved_recipes/:id
   def destroy
     SavedRecipe.find(params[:id]).delete

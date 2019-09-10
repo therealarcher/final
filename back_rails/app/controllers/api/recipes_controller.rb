@@ -2,8 +2,9 @@ class Api::RecipesController < ApplicationController
 
   #shows all of users saved recipes
   def index
-    # @recipes = Recipe.all
-    render json: current_user.recipes
+    @recipes = Recipe.all
+    # render json: current_user.recipes
+    render json: @recipes
   end
 
   # /recipes/search?term=asd
