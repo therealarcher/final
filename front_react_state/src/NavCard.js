@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import { Button, Nav, Form, FormControl, Row } from "react-bootstrap";
+import {
+  Button,
+  Nav,
+  Form,
+  FormControl,
+  Row,
+  Container
+} from "react-bootstrap";
 import { RecipeView } from "./components/Recipe";
 import uuidv4 from "uuid/v4";
 import IngredientModal from "./components/IngredientModal";
@@ -126,19 +133,20 @@ class NavCard extends Component {
           </Card.Body>
           <Button type="submit"></Button>
         </Card>
-        <div>Saved Recipes Here</div>
-        <Row>
-          {this.state.savedRecipes.map(savedRecipe => {
-            return (
-              <RecipeView
-                key={savedRecipe.id}
-                id={savedRecipe.id}
-                name={savedRecipe.name}
-                image={savedRecipe.image}
-              />
-            );
-          })}
-        </Row>
+        <Container>
+          <Row style={{ justifyContent: "center" }}>
+            {this.state.savedRecipes.map(savedRecipe => {
+              return (
+                <RecipeView
+                  key={savedRecipe.id}
+                  id={savedRecipe.id}
+                  name={savedRecipe.name}
+                  image={savedRecipe.image}
+                />
+              );
+            })}
+          </Row>
+        </Container>
       </div>
     );
   }

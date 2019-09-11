@@ -28,44 +28,39 @@ export class GetRecipes extends Component {
   render() {
     return (
       <div>
-        <div>
-          <form
-            style={{
-              display: "flex",
-              justifyContent: "center"
-            }}
-            className="search-container"
-            onSubmit={event => {
-              this.props.handleSubmit(event, this.state.query);
-              this.setState({
-                currentQuery: `Results for ${this.state.query}`
-              });
-              this.setState({ query: "" });
-            }}
-            type="text">
-            <input
-              className="search-heading"
-              type="text"
-              onChange={this.handleChange}
-              value={this.state.query}
-              placeholder={("Results for:", this.state.currentQuery)}
-            />
-            <br />
-            <button className="search-label" type="submit">
-              Get Recipes
-            </button>
-          </form>
-        </div>
-        <div>
-          <Row>
-            {this.props.recipes.map(recipe => {
-              const { id } = recipe;
-              return (
-                <RecipeView saved={this.props.saved} key={id} {...recipe} />
-              );
-            })}
-          </Row>
-        </div>
+        <form
+          style={{
+            display: "flex",
+            justifyContent: "center"
+          }}
+          className="search-container"
+          onSubmit={event => {
+            this.props.handleSubmit(event, this.state.query);
+            this.setState({
+              currentQuery: `Results for ${this.state.query}`
+            });
+            this.setState({ query: "" });
+          }}
+          type="text">
+          <input
+            className="search-heading"
+            type="text"
+            onChange={this.handleChange}
+            value={this.state.query}
+            placeholder={("Results for:", this.state.currentQuery)}
+          />
+          <br />
+          <button className="search-label" type="submit">
+            Get Recipes
+          </button>
+        </form>
+
+        <Row style={{ justifyContent: "center" }}>
+          {this.props.recipes.map(recipe => {
+            const { id } = recipe;
+            return <RecipeView saved={this.props.saved} key={id} {...recipe} />;
+          })}
+        </Row>
       </div>
     );
   }
@@ -159,14 +154,12 @@ export default class App extends Component {
           recipes={this.state.recipes}
           HandleUpdate={this.HandleUpdate}
         />
-        <Container>
-          <Container className="gallery-view">
-            <GetRecipes
-              handleSubmit={this.handleSubmit}
-              recipes={this.state.recipes}
-              saved={this.handleSavedRecipe}
-            />
-          </Container>
+        <Container className="gallery-view">
+          <GetRecipes
+            handleSubmit={this.handleSubmit}
+            recipes={this.state.recipes}
+            saved={this.handleSavedRecipe}
+          />
         </Container>
       </Fragment>
     );

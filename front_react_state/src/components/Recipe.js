@@ -169,7 +169,7 @@ export function RecipeView({ id, name, image, isSaved }) {
   };
   return (
     <Fragment>
-      <Col>
+      <Col style={{ flexGrow: 0 }}>
         <Card
           style={{
             width: "18rem",
