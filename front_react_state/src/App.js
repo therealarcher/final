@@ -1,12 +1,12 @@
-import './styles/App.css';
-import './styles/recipe.css';
-import './styles/search.css';
-import React, { Component, Fragment } from 'react';
+import "./styles/App.css";
+import "./styles/recipe.css";
+import "./styles/search.css";
+import React, { Component, Fragment } from "react";
 
-import { Container, Row } from 'react-bootstrap';
-import { RecipeView } from './components/Recipe';
-import NavCard from './NavCard';
-import NewUser from './components/NewUser';
+import { Container, Row } from "react-bootstrap";
+import { RecipeView } from "./components/Recipe";
+import NavCard from "./NavCard";
+import NewUser from "./components/NewUser";
 
 //Information from this form is passed to the Rails API to run the recipe query
 // by search term(s)
@@ -15,25 +15,25 @@ export class GetRecipes extends Component {
     super();
 
     this.state = {
-      currentUser: '',
+      currentUser: "",
       recipes: [],
-      query: ''
+      query: ""
     };
   }
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({ query: event.target.value });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
 
     fetch(`http://localhost:3001/api/recipes/search?term=${this.state.query}`, {
-      mode: 'cors'
+      mode: "cors"
     })
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
-        return myjson.map((recipe) => {
+        return myjson.map(recipe => {
           return {
             id: recipe.RecipeID,
             name: recipe.Title,
@@ -42,8 +42,8 @@ export class GetRecipes extends Component {
           };
         });
       })
-      .then((results) => this.setState({ recipes: results }))
-      .catch((error) => console.log('parsing failed', error));
+      .then(results => this.setState({ recipes: results }))
+      .catch(error => console.log("parsing failed", error));
   };
 
   render() {
@@ -52,15 +52,12 @@ export class GetRecipes extends Component {
         <div>
           <form
             style={{
-              display: 'flex',
-              justifyContent: 'center'
+              display: "flex",
+              justifyContent: "center"
             }}
             className="search-container"
-            onSubmit={(event) =>
-              this.props.handleSubmit(event, this.state.query)
-            }
-            type="text"
-          >
+            onSubmit={event => this.props.handleSubmit(event, this.state.query)}
+            type="text">
             <input
               className="search-heading"
               type="text"
@@ -75,7 +72,7 @@ export class GetRecipes extends Component {
         </div>
         <div>
           <Row>
-            {this.props.recipes.map((recipe) => {
+            {this.props.recipes.map(recipe => {
               const { id } = recipe;
               return <RecipeView key={id} {...recipe} />;
             })}
@@ -94,15 +91,15 @@ export default class App extends Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
   state = {
-    name: '',
+    name: "",
     currentUser: {
-      name: ''
+      name: ""
     },
     recipes: [],
     ingredients: []
   };
   updateCurrentUser(name) {
-    console.log('the', name);
+    console.log("the", name);
     this.setState({
       currentUser: {
         name: name
@@ -118,7 +115,7 @@ export default class App extends Component {
   handleLogout = () => {
     this.setState({
       currentUser: {
-        name: ''
+        name: ""
       }
     });
   };
@@ -126,12 +123,12 @@ export default class App extends Component {
     event.preventDefault();
 
     fetch(`http://localhost:3001/api/recipes/search?term=${name}`, {
-      mode: 'cors'
+      mode: "cors"
     })
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
-        return myjson.map((recipe) => {
+        return myjson.map(recipe => {
           return {
             id: recipe.RecipeID,
             name: recipe.Title,
@@ -140,8 +137,8 @@ export default class App extends Component {
           };
         });
       })
-      .then((results) => this.setState({ recipes: results }))
-      .catch((error) => console.log('parsing failed', error));
+      .then(results => this.setState({ recipes: results }))
+      .catch(error => console.log("parsing failed", error));
   };
   render() {
     return (
@@ -164,7 +161,7 @@ export default class App extends Component {
         <NavCard HandleUpdate={this.HandleUpdate} />
 
         <Container>
-          <Container>
+          <Container className="gallery-view">
             <GetRecipes
               recipes={this.state.recipes}
               handleSubmit={this.handleSubmit}

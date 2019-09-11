@@ -1,4 +1,5 @@
 import "../styles/App.css";
+import "../styles/Card.css";
 import "../styles/recipe.css";
 import "../styles/search.css";
 import "../styles/modal.css";
@@ -43,8 +44,10 @@ export function RecipeModal({
   return (
     <div>
       <Button
-        className="showRecipeDetails"
-        variant="primary"
+        // className="showRecipeDetails"
+        variant="outline-primary"
+        size="sm"
+        block
         onClick={handleShow}>
         Show Recipe Details
       </Button>
@@ -109,7 +112,6 @@ export function RecipeModal({
 export function RecipeView({ id, name, image }) {
   const [ingredients, setIngredients] = useState([]);
   const [neededIngredients, setNeededIngredients] = useState([]);
-
   const getNeededIngredients = () => {
     fetch(`http://localhost:3001/api/user_ingredients/?id=${id}`, {
       mode: "cors"
@@ -175,7 +177,12 @@ export function RecipeView({ id, name, image }) {
             neededIngedients={neededIngredients}
           />
 
-          <Card.Img alt="Card image cap" src={image} height={240} />
+          <Card.Img
+            // class="cardImage"
+            alt="Card image cap"
+            src={image}
+            height={240}
+          />
         </Card>
       </Col>
     </Fragment>

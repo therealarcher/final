@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
+import React, { Component } from "react";
+import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
+import "./styles/Card.css";
 
 class NavCard extends Component {
   constructor() {
@@ -9,29 +10,29 @@ class NavCard extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   state = {
-    name: '',
-    value: ''
+    name: "",
+    value: ""
   };
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({ name: e.target.value });
   };
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
-    fetch('/api/user_ingredients', {
-      method: 'POST',
+    fetch("/api/user_ingredients", {
+      method: "POST",
       body: JSON.stringify({ name: this.state.name }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     })
-      .then((res) => {
-        if (res.ok) alert('ingredient saved');
+      .then(res => {
+        if (res.ok) alert("ingredient saved");
       })
-      .then(() => this.setState({ name: '' }))
+      .then(() => this.setState({ name: "" }))
 
-      .catch((error) => console.error('Error:', error));
+      .catch(error => console.error("Error:", error));
   };
 
   render() {
@@ -39,7 +40,7 @@ class NavCard extends Component {
       <div>
         <Card className="Card-container">
           <Card.Body>
-            <Card.Title>Title</Card.Title>
+            <Card.Title>RecipEasy</Card.Title>
             <Button>Add items to pantry</Button>
             <form onSubmit={this.handleSubmit}>
               <input

@@ -1,5 +1,17 @@
 .Card-container {
   justify-content: center;
   text-align: center;
-  width: 50%;
+  width: 100%;
+}
+
+.card-img {
+  object-fit: cover;
+}
+
+.flex-row {
+  text-align: center;
+  height: 5em;
+}
+
+.Card-container {
 }
