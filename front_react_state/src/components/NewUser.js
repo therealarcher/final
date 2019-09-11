@@ -18,8 +18,13 @@ export default class newUser extends Component {
     fetch(`http://localhost:3001/api/users/new?user_id=${this.props.name}`, {
       mode: 'cors'
     })
+      .then((response) => response.json())
+      .then((myjson) => {
+        console.log(myjson);
+      })
       .then(() => this.props.updateCurrentUser(this.props.name))
       .then(() => this.props.HandleUpdate(''))
+
       .catch((error) => console.log('error =>', error));
   };
 

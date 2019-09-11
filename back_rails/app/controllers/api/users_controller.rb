@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
   
   def new
     User.create!(name: params[:user_id])
-    render json: 'thank you'
+    render json: current_user.id
 
   end
 end

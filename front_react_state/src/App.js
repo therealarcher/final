@@ -2,7 +2,7 @@ import './styles/App.css';
 import './styles/recipe.css';
 import './styles/search.css';
 import React, { Component, Fragment } from 'react';
-
+import uuidv4 from 'uuid/v4';
 import { Container, Row } from 'react-bootstrap';
 import { RecipeView } from './components/Recipe';
 import NavCard from './NavCard';
@@ -155,6 +155,7 @@ export default class App extends Component {
           </div>
         )}
         <NavCard
+          key={uuidv4}
           currentUser={this.state.currentUser.name}
           recipes={this.state.recipes}
           HandleUpdate={this.HandleUpdate}

@@ -47,5 +47,8 @@ class Api::UserIngredientsController < ApplicationController
     # render json: @@user_num_ingr_required #quantity of ingredients user needs to make recipe
 
   end
-
+  
+  def show 
+    render json: current_user.user_ingredients.to_json
+  end
 end
