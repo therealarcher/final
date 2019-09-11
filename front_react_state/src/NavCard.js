@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
-import { Button, Row } from 'react-bootstrap';
-import { RecipeView } from './components/Recipe';
-import uuidv4 from 'uuid/v4';
-import IngredientModal from './components/IngredientModal';
+import React, { Component } from "react";
+import Card from "react-bootstrap/Card";
+import { Button, Nav, Form, FormControl, Row } from "react-bootstrap";
+import { RecipeView } from "./components/Recipe";
+import uuidv4 from "uuid/v4";
+import IngredientModal from "./components/IngredientModal";
+import Navbar from "react-bootstrap/Navbar";
+import "./styles/Card.css";
 
 class NavCard extends Component {
   constructor() {
@@ -15,7 +17,7 @@ class NavCard extends Component {
 
     this.state = {
       name: this.currentUser,
-      value: '',
+      value: "",
       savedRecipes: [],
       savedIngredients: [],
       showIngredientModal: false
@@ -24,29 +26,29 @@ class NavCard extends Component {
   onHide = () => {
     this.setState({ showIngredientModal: false });
   };
-  getSavedIngredients = (e) => {
-    e.preventDefault(console.log('display pantry'));
+  getSavedIngredients = e => {
+    e.preventDefault(console.log("display pantry"));
 
     fetch(`/api/user_ingredients/${this.currentUser}`)
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
         this.setState({ savedIngredients: myjson });
       })
       .then(() => {
         this.setState({ showIngredientModal: true });
       })
-      .catch((error) => {
-        console.log('error =>', error);
+      .catch(error => {
+        console.log("error =>", error);
       });
   };
-  getSavedRecipes = (e) => {
-    e.preventDefault(console.log('default devent prevented'));
+  getSavedRecipes = e => {
+    e.preventDefault(console.log("default devent prevented"));
     fetch(`/api/saved_recipes?`)
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
-        return myjson.map((savedRecipe) => {
+        return myjson.map(savedRecipe => {
           return {
             id: savedRecipe.recipe_id,
             name: savedRecipe.recipe.name,
@@ -56,39 +58,52 @@ class NavCard extends Component {
           };
         });
       })
-      .then((results) => {
+      .then(results => {
         this.setState({ savedRecipes: results });
       })
 
-      .catch((error) => console.log('parsing failed', error));
+      .catch(error => console.log("parsing failed", error));
   };
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({ name: e.target.value });
   };
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
-    fetch('/api/user_ingredients', {
-      method: 'POST',
+    fetch("/api/user_ingredients", {
+      method: "POST",
       body: JSON.stringify({ name: this.state.name }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     })
-      .then((res) => {
-        if (res.ok) alert('ingredient saved');
+      .then(res => {
+        if (res.ok) alert("ingredient saved");
       })
-      .then(() => this.setState({ name: '' }))
+      .then(() => this.setState({ name: "" }))
 
-      .catch((error) => console.error('Error:', error));
+      .catch(error => console.error("Error:", error));
   };
-
+  // Card key=... below could be an issue
   render() {
     return (
       <div>
+        <Navbar bg="light" expand="lg">
+          {/* <Navbar.Brand href="#home">RecipEasy</Navbar.Brand> */}
+          <h1 class="main-title">recipEasy</h1>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto"></Nav>
+            <Form inline>
+              <FormControl type="text" placeholder="name" className="mr-sm-2" />
+              <Button variant="outline-success">Login</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Navbar>
+
         <Card key={uuidv4} className="Card-container">
           <Card.Body>
-            <Card.Title>RecipEasy</Card.Title>
+            <Card.Title></Card.Title>
             <Button>Add items to pantry</Button>
             <form onSubmit={this.handleSubmit}>
               <input
@@ -113,7 +128,7 @@ class NavCard extends Component {
         </Card>
         <div>Saved Recipes Here</div>
         <Row>
-          {this.state.savedRecipes.map((savedRecipe) => {
+          {this.state.savedRecipes.map(savedRecipe => {
             return (
               <RecipeView
                 key={savedRecipe.id}
