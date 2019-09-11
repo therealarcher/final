@@ -96,13 +96,13 @@ export default class App extends Component {
       name: name
     });
   }
-  handleLogout = () => {
+  handleLogout() {
     this.setState({
       currentUser: {
         name: ""
       }
     });
-  };
+  }
   handleSavedRecipe = () => {
     this.setState({
       isSaved: true
@@ -132,27 +132,15 @@ export default class App extends Component {
   };
   render() {
     return (
-      <Fragment>
-        {this.state.currentUser.name ? (
-          <Fragment>
-            <h4>Logged in as : {this.state.currentUser.name}</h4>
-            <button onClick={this.handleLogout}>Logout</button>
-          </Fragment>
-        ) : (
-          <div>
-            <NewUser
-              currentUser={this.state.currentUser.name}
-              updateCurrentUser={this.updateCurrentUser}
-              name={this.state.name}
-              HandleUpdate={this.HandleUpdate}
-            />
-          </div>
-        )}
+      <div>
         <NavCard
           key={uuidv4}
           currentUser={this.state.currentUser.name}
           recipes={this.state.recipes}
           HandleUpdate={this.HandleUpdate}
+          updateCurrentUser={this.updateCurrentUser}
+          name={this.state.name}
+          handleLogout={this.handleLogout}
         />
         <Container className="gallery-view">
           <GetRecipes
@@ -161,7 +149,7 @@ export default class App extends Component {
             saved={this.handleSavedRecipe}
           />
         </Container>
-      </Fragment>
+      </div>
     );
   }
 }

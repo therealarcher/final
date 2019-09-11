@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Card from "react-bootstrap/Card";
 import {
   Button,
@@ -13,6 +13,7 @@ import uuidv4 from "uuid/v4";
 import IngredientModal from "./components/IngredientModal";
 import Navbar from "react-bootstrap/Navbar";
 import "./styles/Card.css";
+import NewUser from "./components/NewUser";
 
 class NavCard extends Component {
   constructor() {
@@ -30,6 +31,7 @@ class NavCard extends Component {
       showIngredientModal: false
     };
   }
+
   onHide = () => {
     this.setState({ showIngredientModal: false });
   };
@@ -98,41 +100,65 @@ class NavCard extends Component {
         <Navbar bg="light" expand="lg">
           {/* <Navbar.Brand href="#home">RecipEasy</Navbar.Brand> */}
           <h1 class="main-title">recipEasy</h1>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto"></Nav>
-            <Form inline>
-              <FormControl type="text" placeholder="name" className="mr-sm-2" />
-              <Button variant="outline-success">Login</Button>
-            </Form>
-          </Navbar.Collapse>
+          <Fragment>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto"></Nav>
+
+              {this.props.currentUser ? (
+                <Fragment>
+                  <h4>Logged in as : {this.props.currentUser}</h4>
+                  <button onClick={this.props.handleLogout}>Logout</button>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <NewUser
+                    HandleUpdate={this.props.HandleUpdate}
+                    updateCurrentUser={this.props.updateCurrentUser}
+                    name={this.props.name}
+                  />
+                </Fragment>
+              )}
+            </Navbar.Collapse>
+          </Fragment>
         </Navbar>
 
-        <Card key={uuidv4} className="Card-container">
-          <Card.Body>
-            <Card.Title></Card.Title>
-            <Button>Add items to pantry</Button>
-            <form onSubmit={this.handleSubmit}>
-              <input
-                key={uuidv4}
-                value={this.state.name}
-                type="text"
-                onChange={this.handleChange}
-              />
-            </form>
-            <Button onClick={this.getSavedIngredients}>Display Pantry</Button>
-            <Button onClick={this.getSavedRecipes} type="submit">
-              Show Saved Recipes
-            </Button>
+        <div>
+          <Card key={uuidv4} className="Card-container">
+            <Card.Body>
+              <Card.Title></Card.Title>
+              <Button>Add items to pantry</Button>
+              <form onSubmit={this.handleSubmit}>
+                <input
+                  key={uuidv4}
+                  value={this.state.name}
+                  type="text"
+                  onChange={this.handleChange}
+                />
+              </form>
+              <Fragment>
+                <Button onClick={this.getSavedIngredients}>
+                  Display Pantry
+                </Button>
+              </Fragment>
+              <Fragment>
+                <Button onClick={this.getSavedRecipes} type="submit">
+                  Show Saved Recipes
+                </Button>
+              </Fragment>
+              <Fragment>
+                <IngredientModal
+                  hide={() => this.setState({ showIngredientModal: false })}
+                  show={this.state.showIngredientModal}
+                  savedIngredients={this.state.savedIngredients}
+                />
+              </Fragment>
+            </Card.Body>
+            <Button type="submit"></Button>
+          </Card>
+        </div>
 
-            <IngredientModal
-              hide={() => this.setState({ showIngredientModal: false })}
-              show={this.state.showIngredientModal}
-              savedIngredients={this.state.savedIngredients}
-            />
-          </Card.Body>
-          <Button type="submit"></Button>
-        </Card>
         <Container>
           <Row style={{ justifyContent: "center" }}>
             {this.state.savedRecipes.map(savedRecipe => {

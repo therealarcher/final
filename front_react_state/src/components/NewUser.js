@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Form, FormControl, Button } from 'react-bootstrap';
 // the user form is now tracking state at the application level.
 // the goal is to now have a way to track the recipe the user clicks on
 // the ingredients they have in their array of ingredients
@@ -31,15 +31,18 @@ export default class newUser extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            id="userInput"
-            type="text"
+        <Form onSubmit={this.handleSubmit} inline>
+          <FormControl
             onChange={(e) => this.props.HandleUpdate(e.target.value)}
+            type="text"
+            placeholder="name"
+            className="mr-sm-2"
             value={this.props.name}
           />
-          <button type="submit">Login</button>
-        </form>
+          <Button type="submit" variant="outline-success">
+            Login
+          </Button>
+        </Form>
       </div>
     );
   }
