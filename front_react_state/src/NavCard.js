@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
-import { Button } from 'react-bootstrap';
-import { RecipeView } from './components/Recipe';
+import React, { Component } from "react";
+import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
+import { RecipeView } from "./components/Recipe";
+import "./styles/Card.css";
+
 class NavCard extends Component {
   constructor() {
     super();
@@ -11,17 +13,17 @@ class NavCard extends Component {
   }
   state = {
     name: this.currentUser,
-    value: '',
+    value: "",
     savedRecipes: []
   };
 
-  getSavedRecipes = (e) => {
-    e.preventDefault(console.log('default devent prevented'));
+  getSavedRecipes = e => {
+    e.preventDefault(console.log("default devent prevented"));
     fetch(`/api/saved_recipes?`)
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
-        return myjson.map((savedRecipe) => {
+        return myjson.map(savedRecipe => {
           return {
             id: savedRecipe.recipe_id,
             name: savedRecipe.recipe.name,
@@ -31,31 +33,31 @@ class NavCard extends Component {
           };
         });
       })
-      .then((results) => {
+      .then(results => {
         this.setState({ savedRecipes: results });
       })
 
-      .catch((error) => console.log('parsing failed', error));
+      .catch(error => console.log("parsing failed", error));
   };
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({ name: e.target.value });
   };
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
-    fetch('/api/user_ingredients', {
-      method: 'POST',
+    fetch("/api/user_ingredients", {
+      method: "POST",
       body: JSON.stringify({ name: this.state.name }),
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       }
     })
-      .then((res) => {
-        if (res.ok) alert('ingredient saved');
+      .then(res => {
+        if (res.ok) alert("ingredient saved");
       })
-      .then(() => this.setState({ name: '' }))
+      .then(() => this.setState({ name: "" }))
 
-      .catch((error) => console.error('Error:', error));
+      .catch(error => console.error("Error:", error));
   };
 
   render() {
@@ -63,6 +65,7 @@ class NavCard extends Component {
       <div>
         <Card className="Card-container">
           <Card.Body>
+            <Card.Title>RecipEasy</Card.Title>
             <Button>Add items to pantry</Button>
             <form onSubmit={this.handleSubmit}>
               <input
@@ -78,7 +81,7 @@ class NavCard extends Component {
           <Button type="submit"></Button>
         </Card>
         <div>Saved Recipes Here</div>
-        {this.state.savedRecipes.map((savedRecipe) => {
+        {this.state.savedRecipes.map(savedRecipe => {
           console.log(savedRecipe);
           return (
             <RecipeView
