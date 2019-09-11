@@ -4,7 +4,7 @@ import "../styles/recipe.css";
 import "../styles/search.css";
 import "../styles/modal.css";
 import React, { Fragment, useState } from "react";
-import { Card, Col, Spinner, ListGroup, Alert } from "react-bootstrap";
+import { Card, Col, Row, Spinner, ListGroup, Alert } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import uuidv4 from "uuid/v4";
@@ -19,9 +19,13 @@ export function RecipeModal({
   const [saved, setSaved] = useState(false);
   const savedRecipe = () => {
     return saved ? (
-      <Button variant="success">Saved</Button>
+      <Button variant="outline-success" size="lg">
+        Saved
+      </Button>
     ) : (
-      <Button onClick={() => likeRecipe()}>Save Recipe</Button>
+      <Button variant="outline-primary" size="lg" onClick={() => likeRecipe()}>
+        Save Recipe
+      </Button>
     );
   };
   const likeRecipe = () => {
@@ -53,17 +57,12 @@ export function RecipeModal({
 
   return (
     <div>
-      <Button
-        // className="showRecipeDetails"
-        variant="outline-primary"
-        size="sm"
-        block
-        onClick={handleShow}>
+      <Button variant="outline-primary" size="sm" block onClick={handleShow}>
         Show Recipe Details
       </Button>
 
       <Modal
-        className="recipeDetails"
+        // className="recipeDetails"
         size="lg"
         // show={lgShow}
         // onHide={() => setLgShow(false)}
@@ -71,12 +70,12 @@ export function RecipeModal({
         show={show}
         onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Recipe Details</Modal.Title>
+          <Modal.Title className="recipe-title">Recipe Details</Modal.Title>
         </Modal.Header>
+        {savedRecipe()}
         <Modal.Body>
-          <Modal.Title>Recipe Ingredients</Modal.Title>
+          <Modal.Title>Ingredients</Modal.Title>
 
-          {savedRecipe()}
           {ingredients.map(ingredient => {
             return (
               <Card key={uuidv4()}>
@@ -174,8 +173,8 @@ export function RecipeView({ id, name, image, isSaved }) {
         <Card
           style={{
             width: "18rem",
-            margin: "16px",
-            boxShadow: "5px 10px #888888"
+            margin: "16px"
+            // boxShadow: "5px 10px #888888"
           }}
           bg="light"
           text="black"

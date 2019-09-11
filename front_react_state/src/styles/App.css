@@ -23,6 +23,13 @@
   color: #61dafb;
 }
 
+.main-title {
+  /* background-color: #66c9c4; */
+  text-align: center;
+  font-family: "Cinzel", serif;
+  font-size: 3.5rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

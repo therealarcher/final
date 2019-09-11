@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import { Button } from "react-bootstrap";
+import { Button, Nav, Form, FormControl } from "react-bootstrap";
+import Navbar from "react-bootstrap/Navbar";
 import { RecipeView } from "./components/Recipe";
 import "./styles/Card.css";
 
@@ -63,9 +64,22 @@ class NavCard extends Component {
   render() {
     return (
       <div>
+        <Navbar bg="light" expand="lg">
+          {/* <Navbar.Brand href="#home">RecipEasy</Navbar.Brand> */}
+          <h1 class="main-title">recipEasy</h1>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto"></Nav>
+            <Form inline>
+              <FormControl type="text" placeholder="name" className="mr-sm-2" />
+              <Button variant="outline-success">Login</Button>
+            </Form>
+          </Navbar.Collapse>
+        </Navbar>
+
         <Card className="Card-container">
           <Card.Body>
-            <Card.Title>RecipEasy</Card.Title>
+            <Card.Title></Card.Title>
             <Button>Add items to pantry</Button>
             <form onSubmit={this.handleSubmit}>
               <input

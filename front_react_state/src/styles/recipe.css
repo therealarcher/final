@@ -25,3 +25,13 @@
 .gallery-view {
   text-align: center;
 }
+
+.modal-header {
+}
+.recipe-title {
+  text-align: center;
+}
+
+#recipe-details {
+  text-align: center;
+}

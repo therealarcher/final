@@ -158,7 +158,6 @@ export default class App extends Component {
           recipes={this.state.recipes}
           HandleUpdate={this.HandleUpdate}
         />
-
         <Container>
           <Container className="gallery-view">
             <GetRecipes
