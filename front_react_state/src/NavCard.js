@@ -14,17 +14,22 @@ class NavCard extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
+    // this.changeText = this.changeText.bind(this);
     this.onHide = this.onHide.bind(this);
 
     this.state = {
       name: this.currentUser,
-      value: '',
 
+      buttonText: false,
       savedIngredients: [],
       showIngredientModal: false
     };
   }
+  changeText = () => {
+    this.setState({
+      buttonText: !this.state.buttonText
+    });
+  };
 
   onHide = () => {
     this.setState({ showIngredientModal: false });
@@ -149,7 +154,16 @@ class NavCard extends Component {
                   </Row>
                 </div>
               )}
-              <button onClick={toggle}>Hide Saved Recipes</button>
+              <button
+                onClick={() => {
+                  toggle();
+                  this.changeText();
+                }}
+              >
+                {!this.state.buttonText
+                  ? 'Show Saved Recipes'
+                  : 'Hide Saved Recipes'}
+              </button>
             </div>
           )}
         />
