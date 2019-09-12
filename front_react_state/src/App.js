@@ -3,7 +3,7 @@ import './styles/recipe.css';
 import './styles/search.css';
 import React, { Component, Fragment } from 'react';
 import uuidv4 from 'uuid/v4';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 import { RecipeView } from './components/Recipe';
 import NavCard from './NavCard';
 import NewUser from './components/NewUser';
@@ -51,9 +51,13 @@ export class GetRecipes extends Component {
             placeholder={('Results for:', this.state.currentQuery)}
           />
           <br />
-          <button className="search-label" type="submit">
+          <Button
+            variant="outline-success"
+            className="search-label"
+            type="submit"
+          >
             Get Recipes
-          </button>
+          </Button>
         </form>
 
         <Row style={{ justifyContent: 'center' }}>
