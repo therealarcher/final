@@ -6,8 +6,10 @@ import uuidv4 from "uuid/v4";
 import IngredientModal from "./components/IngredientModal";
 import Navbar from "react-bootstrap/Navbar";
 import "./styles/Card.css";
+import "./styles/recipe.css";
 import NewUser from "./components/NewUser";
 import Toggle from "./utilities/Toggle";
+import { Modal } from "react-bootstrap";
 
 class NavCard extends Component {
   constructor() {
@@ -116,7 +118,6 @@ class NavCard extends Component {
         <div>
           <Card key={uuidv4} className="Card-container">
             <Card.Body>
-              <Card.Title></Card.Title>
               <form class="pantry-textbox" onSubmit={this.handleSubmit}>
                 <input
                   key={uuidv4}
@@ -174,7 +175,10 @@ class NavCard extends Component {
                   </Row>
                 </div>
               )}
-              <button
+              <Button
+                className="toggle-button"
+                variant="outline-dark"
+                size="sm"
                 onClick={() => {
                   toggle();
                   this.changeText();
@@ -182,7 +186,7 @@ class NavCard extends Component {
                 {!this.state.buttonText
                   ? "Show Saved Recipes"
                   : "Hide Saved Recipes"}
-              </button>
+              </Button>
             </div>
           )}
         />

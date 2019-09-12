@@ -72,8 +72,6 @@ export function RecipeModal({
       <Modal
         // className="recipeDetails"
         size="lg"
-        // show={lgShow}
-        // onHide={() => setLgShow(false)}
         aria-labelledby="example-modal-sizes-title-lg"
         show={show}
         onHide={handleClose}>

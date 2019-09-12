@@ -32,8 +32,8 @@
   text-align: center;
 }
 
-#recipe-details {
-  text-align: center;
+.recipe-details {
+  padding-left: 0.5rem;
 }
 
 .search-heading {
