@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Button, Nav, Form, FormControl, Row } from 'react-bootstrap';
+import { Button, Nav, Form, FormControl, Row, Alert } from 'react-bootstrap';
 import { RecipeView } from './components/Recipe';
 import uuidv4 from 'uuid/v4';
 import IngredientModal from './components/IngredientModal';
@@ -14,17 +14,24 @@ class NavCard extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.changeText = this.changeText.bind(this);
-    this.onHide = this.onHide.bind(this);
+    this.alertVisible = this.alertVisible.bind(this);
+    this.hideAlert = this.hideAlert.bind(this);
 
     this.state = {
       name: this.currentUser,
 
       buttonText: false,
       savedIngredients: [],
-      showIngredientModal: false
+      showIngredientModal: false,
+      alertVisible: false
     };
   }
+  hideAlert = () => {
+    this.setState({ alertVisible: false });
+  };
+  alertVisible = () => {
+    this.setState({ alertVisible: true });
+  };
   changeText = () => {
     this.setState({
       buttonText: !this.state.buttonText
@@ -65,7 +72,11 @@ class NavCard extends Component {
       }
     })
       .then((res) => {
-        if (res.ok) alert('ingredient saved');
+        if (res.ok) {
+          this.alertVisible();
+        } else {
+          alert('Cannot add ingredient');
+        }
       })
       .then(() => this.setState({ name: '' }))
 
@@ -106,6 +117,20 @@ class NavCard extends Component {
           <Card key={uuidv4} className="Card-container">
             <Card.Body>
               <Card.Title></Card.Title>
+              {this.state.alertVisible ? (
+                <Alert
+                  dismissible={true}
+                  isOpen={this.alertVisible}
+                  onHide={this.hideAlert}
+                  variant="success"
+                  color="primary"
+                >
+                  Ingredient Added
+                </Alert>
+              ) : (
+                <p></p>
+              )}
+
               <Button>Add items to pantry</Button>
               <form onSubmit={this.handleSubmit}>
                 <input
