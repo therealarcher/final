@@ -8,18 +8,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import './styles/Card.css';
 import NewUser from './components/NewUser';
 import Toggle from './utilities/Toggle';
+
 class NavCard extends Component {
   constructor() {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getSavedRecipes = this.getSavedRecipes.bind(this);
+
     this.onHide = this.onHide.bind(this);
 
     this.state = {
       name: this.currentUser,
       value: '',
-      savedRecipes: [],
+
       savedIngredients: [],
       showIngredientModal: false
     };
@@ -44,28 +45,7 @@ class NavCard extends Component {
         console.log('error =>', error);
       });
   };
-  getSavedRecipes = (e) => {
-    e.preventDefault(console.log('default devent prevented'));
-    fetch(`/api/saved_recipes?`)
-      .then((response) => response.json())
-      .then((myjson) => {
-        console.log(myjson);
-        return myjson.map((savedRecipe) => {
-          return {
-            id: savedRecipe.recipe_id,
-            name: savedRecipe.recipe.name,
-            image: savedRecipe.recipe.image_url,
-            category: savedRecipe.recipe.cuisine,
-            isSaved: false
-          };
-        });
-      })
-      .then((results) => {
-        this.setState({ savedRecipes: results });
-      })
 
-      .catch((error) => console.log('parsing failed', error));
-  };
   handleChange = (e) => {
     this.setState({ name: e.target.value });
   };
@@ -135,11 +115,7 @@ class NavCard extends Component {
                   Display Pantry
                 </Button>
               </Fragment>
-              <Fragment>
-                <Button onClick={this.getSavedRecipes} type="submit">
-                  Update Saved Recipes
-                </Button>
-              </Fragment>
+
               <Fragment>
                 <IngredientModal
                   hide={() => this.setState({ showIngredientModal: false })}
@@ -158,7 +134,7 @@ class NavCard extends Component {
               {on && (
                 <div>
                   <Row style={{ justifyContent: 'center' }}>
-                    {this.state.savedRecipes.map((savedRecipe) => {
+                    {this.props.savedRecipes.map((savedRecipe) => {
                       return (
                         <Fragment>
                           <RecipeView
