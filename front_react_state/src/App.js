@@ -134,7 +134,8 @@ export default class App extends Component {
     this.setState({
       currentUser: {
         name: ""
-      }
+      },
+      savedRecipes: []
     });
   }
   handleSavedRecipe = () => {
