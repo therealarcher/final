@@ -35,3 +35,7 @@
 #recipe-details {
   text-align: center;
 }
+
+.search-heading {
+  border-radius: 5px;
+}

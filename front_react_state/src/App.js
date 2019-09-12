@@ -1,12 +1,12 @@
-import './styles/App.css';
-import './styles/recipe.css';
-import './styles/search.css';
-import React, { Component, Fragment } from 'react';
-import uuidv4 from 'uuid/v4';
-import { Container, Row } from 'react-bootstrap';
-import { RecipeView } from './components/Recipe';
-import NavCard from './NavCard';
-import NewUser from './components/NewUser';
+import "./styles/App.css";
+import "./styles/recipe.css";
+import "./styles/search.css";
+import React, { Component, Fragment } from "react";
+import uuidv4 from "uuid/v4";
+import { Container, Row, Button } from "react-bootstrap";
+import { RecipeView } from "./components/Recipe";
+import NavCard from "./NavCard";
+import NewUser from "./components/NewUser";
 
 //Information from this form is passed to the Rails API to run the recipe query
 // by search term(s)
@@ -17,11 +17,11 @@ export class GetRecipes extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   state = {
-    query: '',
-    currentQuery: ''
+    query: "",
+    currentQuery: ""
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({ query: event.target.value });
   };
 
@@ -30,34 +30,36 @@ export class GetRecipes extends Component {
       <div>
         <form
           style={{
-            display: 'flex',
-            justifyContent: 'center'
+            display: "flex",
+            justifyContent: "center"
           }}
           className="search-container"
-          onSubmit={(event) => {
+          onSubmit={event => {
             this.props.handleSubmit(event, this.state.query);
             this.setState({
               currentQuery: `Results for ${this.state.query}`
             });
-            this.setState({ query: '' });
+            this.setState({ query: "" });
           }}
-          type="text"
-        >
+          type="text">
           <input
             className="search-heading"
             type="text"
             onChange={this.handleChange}
             value={this.state.query}
-            placeholder={('Results for:', this.state.currentQuery)}
+            placeholder={("Results for:", this.state.currentQuery)}
           />
           <br />
-          <button className="search-label" type="submit">
+          <Button
+            variant="outline-success"
+            className="search-label"
+            type="submit">
             Get Recipes
-          </button>
+          </Button>
         </form>
 
-        <Row style={{ justifyContent: 'center' }}>
-          {this.props.recipes.map((recipe) => {
+        <Row style={{ justifyContent: "center" }}>
+          {this.props.recipes.map(recipe => {
             const { id } = recipe;
             return (
               <RecipeView
@@ -84,29 +86,29 @@ export default class App extends Component {
     this.getSavedRecipes = this.getSavedRecipes.bind(this);
   }
   state = {
-    name: '',
+    name: "",
     currentUser: {
-      name: ''
+      name: ""
     },
     recipes: [],
     ingredients: [],
     savedRecipes: []
   };
   updateCurrentUser(name) {
-    console.log('the', name);
+    console.log("the", name);
     this.setState({
       currentUser: {
         name: name
       }
     });
   }
-  getSavedRecipes = (e) => {
-    console.log('this is our function');
+  getSavedRecipes = e => {
+    console.log("this is our function");
     fetch(`/api/saved_recipes?`)
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
-        return myjson.map((savedRecipe) => {
+        return myjson.map(savedRecipe => {
           return {
             id: savedRecipe.recipe_id,
             name: savedRecipe.recipe.name,
@@ -116,12 +118,12 @@ export default class App extends Component {
           };
         });
       })
-      .then((results) => {
-        console.log('results => ', results);
+      .then(results => {
+        console.log("results => ", results);
         this.setState({ savedRecipes: results });
       })
 
-      .catch((error) => console.log('parsing failed', error));
+      .catch(error => console.log("parsing failed", error));
   };
   HandleUpdate(name) {
     this.setState({
@@ -131,7 +133,7 @@ export default class App extends Component {
   handleLogout() {
     this.setState({
       currentUser: {
-        name: ''
+        name: ""
       }
     });
   }
@@ -144,12 +146,12 @@ export default class App extends Component {
     event.preventDefault();
 
     fetch(`http://localhost:3001/api/recipes/search?term=${name}`, {
-      mode: 'cors'
+      mode: "cors"
     })
-      .then((response) => response.json())
-      .then((myjson) => {
+      .then(response => response.json())
+      .then(myjson => {
         console.log(myjson);
-        return myjson.map((recipe) => {
+        return myjson.map(recipe => {
           return {
             id: recipe.RecipeID,
             name: recipe.Title,
@@ -159,8 +161,8 @@ export default class App extends Component {
           };
         });
       })
-      .then((results) => this.setState({ recipes: results }))
-      .catch((error) => console.log('parsing failed', error));
+      .then(results => this.setState({ recipes: results }))
+      .catch(error => console.log("parsing failed", error));
   };
   render() {
     return (
